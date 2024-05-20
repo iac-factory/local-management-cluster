@@ -1,0 +1,3 @@
+[submodule "cluster-management"]
+	path = references/cluster-management
+	url = https://github.com/iac-factory/cluster-management.git
