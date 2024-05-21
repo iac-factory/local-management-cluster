@@ -19,11 +19,15 @@
 1. Establish Secret(s).
 
     ```bash
+    mkdir -p ./kustomize/.secrets
+   
+    printf "%s" "${GITHUB_USER}" > ./kustomize/.secrets/username
+    printf "%s" "${GITHUB_TOKEN}" > ./kustomize/.secrets/password
+
     printf "%s" "$(aws configure get aws_access_key_id)" > ./kustomize/.secrets/aws-access-key-id
     printf "%s" "$(aws configure get aws_secret_access_key)" > ./kustomize/.secrets/aws-secret-access-key
     
-    printf "%s" "${GITHUB_USER}" > ./kustomize/.secrets/username
-    printf "%s" "${GITHUB_TOKEN}" > ./kustomize/.secrets/password
+    printf "[default]\naws_access_key_id=%s\naws_secret_access_key=%s" "$(aws configure get aws_access_key_id)" "$(aws configure get aws_secret_access_key)" > ./kustomize/.secrets/profile 
     
     kubectl apply --kustomize ./kustomize
     ```
